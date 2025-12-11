@@ -1,6 +1,6 @@
 import pytest
 
-from otherworld_asset_service.models.enums import AssetType, Department, VersionStatus
+from otherworld_asset_service.models.enums import AssetType, Department, Status
 
 
 INVALID_VALUE = "Foo"
@@ -19,6 +19,6 @@ def test_invalid_department_value():
 
 
 def test_invalid_version_status_value():
-    # Verify version status usage when value does not exist
+    # Verify asset version status usage when value does not exist
     with pytest.raises(ValueError):
-        VersionStatus(INVALID_VALUE)
+        Status(INVALID_VALUE)

@@ -24,8 +24,8 @@ class Department(Enum):
     TEXTURING = "texturing"
 
 
-class VersionStatus(Enum):
-    """Represents all valid version statuses."""
+class Status(Enum):
+    """Represents all valid asset version statuses."""
 
     ACTIVE = "active"
     INACTIVE = "inactive"

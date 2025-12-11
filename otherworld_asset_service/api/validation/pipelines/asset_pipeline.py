@@ -1,8 +1,8 @@
 from otherworld_asset_service.api.validation.rules.asset_rules import (
     AssetNameIsRequiredRule,
-    AssetNameIsCorrectTypeRule,
+    AssetNameIsValidRule,
     AssetTypeIsRequiredRule,
-    AssetTypeIsCorrectTypeRule,
+    AssetTypeIsValidRule,
 )
 from otherworld_asset_service.api.validation.validation import ValidationPipeline
 from otherworld_asset_service.models.asset import Asset
@@ -18,8 +18,8 @@ def build_default_asset_pipeline() -> ValidationPipeline[Asset]:
     return ValidationPipeline[Asset](
         rules=[
             AssetNameIsRequiredRule(),
-            AssetNameIsCorrectTypeRule(),
+            AssetNameIsValidRule(),
             AssetTypeIsRequiredRule(),
-            AssetTypeIsCorrectTypeRule(),
+            AssetTypeIsValidRule(),
         ]
     )

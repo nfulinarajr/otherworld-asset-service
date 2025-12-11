@@ -17,7 +17,7 @@ class AssetNameIsRequiredRule:
         return validation_errors
 
 
-class AssetNameIsCorrectTypeRule:
+class AssetNameIsValidRule:
     """Validation rule to ensure data type is correct."""
 
     def validate(self, asset: Asset) -> list[ValidationError]:
@@ -45,7 +45,7 @@ class AssetTypeIsRequiredRule:
         return validation_errors
 
 
-class AssetTypeIsCorrectTypeRule:
+class AssetTypeIsValidRule:
     """Validation rule to ensure data type is correct."""
 
     def validate(self, asset: Asset) -> list[ValidationError]:

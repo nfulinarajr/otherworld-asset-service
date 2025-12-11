@@ -1,40 +1,40 @@
 import pytest
 
-from otherworld_asset_service.models.enums import Department, VersionStatus
-from otherworld_asset_service.models.version import Version
+from otherworld_asset_service.models.enums import Department, Status
+from otherworld_asset_service.models.asset_version import AssetVersion
 
 
 def test_version_creation_with_required_and_default_values():
-    # Create version with valid asset id, department, default version number, and
-    # default version status values
-    version = Version(asset_id=1, department=Department.ANIMATION)
+    # Create asset version with valid asset id, department, default version, and
+    # default asset version status values
+    asset_version = AssetVersion(asset=1, department=Department.ANIMATION)
 
-    # Verify the version number is correctly stored
-    assert version.asset_id == 1
+    # Verify the asset version is correctly stored
+    assert asset_version.asset == 1
 
     # Verify the department is correctly stored
-    assert version.department == Department.ANIMATION
+    assert asset_version.department == Department.ANIMATION
 
-    # Verify the default version number is valid
-    assert version.number == 1
+    # Verify the default asset version is valid
+    assert asset_version.version == 1
 
-    # Verify the default version status is valid
-    assert version.status == VersionStatus.INACTIVE
+    # Verify the default asset version status is valid
+    assert asset_version.status == Status.INACTIVE
 
 
-def test_version_creation_with_missing_asset_id():
-    # Create version with missing asset id
+def test_asset_version_creation_with_missing_asset():
+    # Create version with missing asset
     with pytest.raises(TypeError):
-        Version(department=Department.ANIMATION)
+        AssetVersion(department=Department.ANIMATION)
 
 
-def test_version_creation_with_missing_department():
-    # Create version with missing department
+def test_asset_version_creation_with_missing_department():
+    # Create asset version with missing department
     with pytest.raises(TypeError):
-        Version(asset_id=1)
+        AssetVersion(asset=1)
 
 
-def test_version_creation_with_invalid_version_number():
-    # Create version with invalid version number
+def test_asset_version_creation_with_invalid_asset_version():
+    # Create asset version with invalid version
     with pytest.raises(ValueError):
-        Version(asset_id=1, department=Department.ANIMATION, number=0)
+        AssetVersion(asset=1, department=Department.ANIMATION, version=0)

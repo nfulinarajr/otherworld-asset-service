@@ -23,7 +23,7 @@ class ValidationPipeline(Generic[T]):
     """A validation pipeline that is fully extensible and composable.
 
     This pipeline accepts a Sequence of rules conforming to the Rule[T] protocol, and
-    applies them to a subject of type T, which can be Asset or Version objects.
+    applies them to a subject of type T, which can be an Asset, AssetVersion, etc.
 
     Args:
         rules (Sequence[Rule[T]] | None): A container of validation rules that conform
@@ -47,6 +47,7 @@ class ValidationPipeline(Generic[T]):
             list[ValidationError]: A list of validation errors encountered while
                 applying all rules to the subject.
         """
+
         validation_errors: list[ValidationError] = []
 
         # Iterate all validation rules and collect any errors encountered
