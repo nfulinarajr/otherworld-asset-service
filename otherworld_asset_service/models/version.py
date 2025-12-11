@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
-from otherworld_asset_service.models.enums import Department
-from otherworld_asset_service.models.enums import VersionStatus
+from otherworld_asset_service.models.enums import Department, VersionStatus
 
 
 @dataclass(slots=True)

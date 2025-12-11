@@ -1,8 +1,7 @@
 import pytest
 
+from otherworld_asset_service.models.enums import Department, VersionStatus
 from otherworld_asset_service.models.version import Version
-from otherworld_asset_service.models.enums import Department
-from otherworld_asset_service.models.enums import VersionStatus
 
 
 def test_version_creation_with_required_and_default_values():

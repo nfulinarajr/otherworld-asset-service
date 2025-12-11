@@ -1,8 +1,6 @@
 import pytest
 
-from otherworld_asset_service.models.enums import AssetType
-from otherworld_asset_service.models.enums import Department
-from otherworld_asset_service.models.enums import VersionStatus
+from otherworld_asset_service.models.enums import AssetType, Department, VersionStatus
 
 
 INVALID_VALUE = "Foo"
