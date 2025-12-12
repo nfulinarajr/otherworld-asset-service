@@ -1,6 +1,6 @@
 from otherworld_asset_service.api.validation.errors import ValidationError
-from otherworld_asset_service.models.enums import Department, Status
 from otherworld_asset_service.models.asset_version import AssetVersion
+from otherworld_asset_service.models.enums import VersionStatus
 
 
 class AssetVersionDepartmentIsRequiredRule:
@@ -26,11 +26,11 @@ class AssetVersionDepartmentIsValidRule:
     def validate(self, asset_version: AssetVersion) -> list[ValidationError]:
         validation_errors: list[ValidationError] = []
 
-        if not isinstance(asset_version.department, Department):
+        if not isinstance(asset_version.department, str):
             validation_errors.append(
                 ValidationError(
                     field="department",
-                    message="Asset version department must be of type Department",
+                    message="Asset version department must be of type str",
                 )
             )
 
@@ -38,7 +38,7 @@ class AssetVersionDepartmentIsValidRule:
 
 
 class AssetVersionIsGreaterThanOneRule:
-    """Rule to validate the asset version to be greater than or equal to 1."""
+    """Validation rule to ensure asset version is greater than or equal to 1."""
 
     def validate(self, asset_version: AssetVersion) -> list[ValidationError]:
         validation_errors: list[ValidationError] = []
@@ -61,12 +61,12 @@ class AssetVersionStatusIsKnownRule:
         validation_errors: list[ValidationError] = []
 
         try:
-            Status(asset_version.status)
+            VersionStatus(asset_version.status)
         except ValueError:
             validation_errors.append(
                 ValidationError(
                     field="status",
-                    message="Asset version status must be of type Status",
+                    message="Asset version status must be of type VersionStatus",
                 )
             )
 

@@ -22,12 +22,12 @@ class Rule(Protocol[T]):
 class ValidationPipeline(Generic[T]):
     """A validation pipeline that is fully extensible and composable.
 
-    This pipeline accepts a Sequence of rules conforming to the Rule[T] protocol, and
+    This pipeline accepts a Sequence of rules conforming to the Rule protocol, and
     applies them to a subject of type T, which can be an Asset, AssetVersion, etc.
 
     Args:
-        rules (Sequence[Rule[T]] | None): A container of validation rules that conform
-            to the Rule[T] protocol and validate objects of type T.
+        rules (Sequence[Rule] | None): A container of validation rules that conform
+            to the Rule protocol and validate objects of type T.
     """
 
     # Container for all rules that implement the Rule protocol

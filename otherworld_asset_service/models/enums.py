@@ -13,18 +13,7 @@ class AssetType(Enum):
     VEHICLE = "vehicle"
 
 
-class Department(Enum):
-    """Represents all valid departments."""
-
-    ANIMATION = "animation"
-    CFX = "cfx"
-    FX = "fx"
-    MODELING = "modeling"
-    RIGGING = "rigging"
-    TEXTURING = "texturing"
-
-
-class Status(Enum):
+class VersionStatus(Enum):
     """Represents all valid asset version statuses."""
 
     ACTIVE = "active"

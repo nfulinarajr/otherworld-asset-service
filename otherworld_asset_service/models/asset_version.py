@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 
-from otherworld_asset_service.models.enums import Department, Status
+from otherworld_asset_service.models.enums import VersionStatus
 
 
 @dataclass(slots=True)
 class AssetVersion:
-    """A single iteration for a specific asset state
+    """A single iteration describing a specific asset state.
 
     Asset version uniqueness is defined by its asset, department, and version. Only a
     single asset version can be created with this specific combination. Asset versions
@@ -13,9 +13,9 @@ class AssetVersion:
     """
 
     asset: int
-    department: Department
+    department: str
     version: int = 1
-    status: Status = Status.INACTIVE
+    status: VersionStatus = VersionStatus.INACTIVE
 
     def __post_init__(self):
         if self.version < 1:

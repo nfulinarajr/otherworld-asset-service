@@ -4,27 +4,22 @@ from otherworld_asset_service.models.asset import Asset
 from otherworld_asset_service.models.enums import AssetType
 
 
-ASSET_NAME = "Coraline"
+ASSET_NAME = "coraline"
+ASSET_TYPE = AssetType.CHARACTER
 
 
 def test_asset_creation_with_required_values():
-    # Create asset with valid name and type
-    asset = Asset(name=ASSET_NAME, type=AssetType.CHARACTER)
+    asset = Asset(name=ASSET_NAME, asset_type=ASSET_TYPE)
 
-    # Verify the asset name is correctly stored
     assert asset.name == ASSET_NAME
-
-    # Verify the asset type is correctly stored
-    assert asset.type == AssetType.CHARACTER
+    assert asset.asset_type == ASSET_TYPE
 
 
 def test_asset_creation_with_missing_name():
-    # Create asset with missing name
     with pytest.raises(TypeError):
-        Asset(type=AssetType.CHARACTER)
+        Asset(asset_type=ASSET_TYPE)
 
 
 def test_asset_creation_with_missing_type():
-    # Create asset with missing type
     with pytest.raises(TypeError):
         Asset(name=ASSET_NAME)

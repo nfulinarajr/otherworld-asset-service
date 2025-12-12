@@ -37,7 +37,7 @@ class AssetTypeIsRequiredRule:
     def validate(self, asset: Asset) -> list[ValidationError]:
         validation_errors: list[ValidationError] = []
 
-        if not asset.type:
+        if not asset.asset_type:
             validation_errors.append(
                 ValidationError(field="type", message="Asset must define a valid type")
             )
@@ -51,7 +51,7 @@ class AssetTypeIsValidRule:
     def validate(self, asset: Asset) -> list[ValidationError]:
         validation_errors: list[ValidationError] = []
 
-        if not isinstance(asset.type, AssetType):
+        if not isinstance(asset.asset_type, AssetType):
             validation_errors.append(
                 ValidationError(
                     field="type", message="Asset type must be of type AssetType"
