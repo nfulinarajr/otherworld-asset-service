@@ -1,5 +1,7 @@
 import sqlite3
 
+from typing import Optional
+
 from otherworld_asset_service.models.asset import Asset
 from otherworld_asset_service.models.asset_version import AssetVersion
 from otherworld_asset_service.models.enums import AssetType, VersionStatus
@@ -127,7 +129,7 @@ class SQLiteDatabase:
             status=asset_version.status,
         )
 
-    def get_asset(self, name: str) -> Asset | None:
+    def get_asset(self, name: str) -> Optional[Asset]:
         """Get the asset corresponding to the provided asset name.
 
         Args:
@@ -158,7 +160,7 @@ class SQLiteDatabase:
             asset_type=AssetType(row["type"]),
         )
 
-    def get_asset_version(self, asset_id: int, version: int) -> AssetVersion | None:
+    def get_asset_version(self, asset_id: int, version: int) -> Optional[AssetVersion]:
         """Get the asset version corresponding to the provided asset id.
 
         Args:

@@ -1,7 +1,7 @@
 import argparse
-import re
 
 from pathlib import Path
+from typing import Optional
 
 from otherworld_asset_service.api.validation.pipelines.asset_pipeline import (
     build_default_asset_pipeline,
@@ -16,7 +16,7 @@ from otherworld_asset_service.models.asset_version import AssetVersion
 from otherworld_asset_service.models.enums import AssetType, VersionStatus
 
 
-def get_asset_type_from_input() -> AssetType | None:
+def get_asset_type_from_input() -> Optional[AssetType]:
     """Get the asset type from the user input
 
     Returns:
@@ -51,7 +51,7 @@ def get_asset_type_from_input() -> AssetType | None:
     return asset_type
 
 
-def get_version_status_from_input() -> VersionStatus | None:
+def get_version_status_from_input() -> Optional[VersionStatus]:
     """Get the version status from the user input.
 
     Returns:
@@ -139,30 +139,32 @@ def build_parser() -> argparse.ArgumentParser:
         "--data-store-path",
         type=Path,
         default=None,
-        help="The path to your data_store file (default: None)",
+        help="The data_store path (default: None)",
     )
 
     return parser
 
 
-def create_asset_service(data_store: Path | None) -> OtherWorldAssetService:
+def create_asset_service(data_store_path: Path | None) -> OtherWorldAssetService:
     """Create the asset service to interact with the data store.
 
     Args:
-        data_store (Path): The data store location.
+        data_store_path (Path): The data store location.
 
     Returns:
         OtherWorldAssetService: The asset service.
     """
 
-    if not data_store:
-        data_store = SQLiteDatabase()
+    if data_store_path is None:
+        database_directory = Path(__file__).parent
+        sqlite_database = database_directory / "sqlite_database.db"
+        data_store_path = Path(sqlite_database)
 
     asset_pipeline = build_default_asset_pipeline()
     asset_version_pipeline = build_default_asset_version_pipeline()
 
     asset_service = OtherWorldAssetService(
-        data_store, asset_pipeline, asset_version_pipeline
+        data_store_path, asset_pipeline, asset_version_pipeline
     )
     return asset_service
 

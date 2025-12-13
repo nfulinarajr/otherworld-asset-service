@@ -22,7 +22,7 @@ VERSION_STATUS = VersionStatus.ACTIVE
 
 
 @pytest.fixture
-def sqlite_database():
+def sqlite_database(tmp_path: Path):
     """Test fixture to provide a SQLiteDatabase instance for each test run.
 
     The SQLiteDatabase safely closes when no longer in use.
@@ -31,16 +31,13 @@ def sqlite_database():
         SQLiteDatabase: The newly created SQLiteDatabase instance to test with.
     """
 
-    data_store = SQLiteDatabase()
+    data_store_path = tmp_path / "sqlite_database.db"
 
-    try:
-        yield data_store
-    finally:
-        data_store.close()
+    yield data_store_path
 
 
 @pytest.fixture
-def asset_service(sqlite_database: SQLiteDatabase) -> OtherWorldAssetService:
+def asset_service(sqlite_database: Path) -> OtherWorldAssetService:
     """Test fixture to provide an asset service instance for each test run.
 
     Args:
@@ -51,7 +48,7 @@ def asset_service(sqlite_database: SQLiteDatabase) -> OtherWorldAssetService:
     """
 
     return OtherWorldAssetService(
-        data_store=sqlite_database,
+        data_store_path=sqlite_database,
         asset_pipeline=build_default_asset_pipeline(),
         asset_version_pipeline=build_default_asset_version_pipeline(),
     )

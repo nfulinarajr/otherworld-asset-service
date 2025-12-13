@@ -2,6 +2,7 @@ import json
 import sqlite3
 
 from pathlib import Path
+from typing import Optional
 
 from otherworld_asset_service.models.asset import Asset
 from otherworld_asset_service.models.asset_version import AssetVersion
@@ -16,8 +17,8 @@ LOGGER = logger.get_logger()
 class OtherWorldAssetService:
     """The main API and entry point for interacting with assets and asset versions."""
 
-    def __init__(self, data_store, asset_pipeline, asset_version_pipeline):
-        self._data_store = data_store or SQLiteDatabase()
+    def __init__(self, data_store_path, asset_pipeline, asset_version_pipeline):
+        self._data_store = SQLiteDatabase(data_store_path)
         self._asset_pipeline = asset_pipeline
         self._asset_version_pipeline = asset_version_pipeline
 
@@ -79,7 +80,7 @@ class OtherWorldAssetService:
                 ),
             )
 
-    def add_asset(self, asset: Asset) -> Asset | None:
+    def add_asset(self, asset: Asset) -> Optional[Asset]:
         """Add an asset to the data store.
 
         Args:
