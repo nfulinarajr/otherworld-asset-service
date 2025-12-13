@@ -3,7 +3,7 @@ import logging
 from logging import Logger
 
 
-def get_logger(name: str = "Other World") -> Logger:
+def get_logger(name: str = "Other World Asset Service Logger") -> Logger:
     """A simple logger instance for the application.
 
     Returns:
@@ -13,10 +13,10 @@ def get_logger(name: str = "Other World") -> Logger:
     logger = logging.getLogger(name)
 
     if not logger.handlers:
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.INFO)
 
         handler = logging.StreamHandler()
-        handler.setLevel(logging.DEBUG)
+        handler.setLevel(logging.INFO)
 
         handler.setFormatter(logging.Formatter("[%(levelname)s] %(name)s: %(message)s"))
 

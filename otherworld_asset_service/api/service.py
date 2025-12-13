@@ -89,7 +89,9 @@ class OtherWorldAssetService:
             Asset: The added asset.
         """
 
-        LOGGER.debug("Adding asset for {} ({})".format(asset.name, asset.asset_type))
+        LOGGER.debug(
+            "Adding asset for {} ({})".format(asset.name, asset.asset_type.value)
+        )
 
         validation_errors = self._asset_pipeline.validate(asset)
 
@@ -120,7 +122,9 @@ class OtherWorldAssetService:
             AssetVersion: The added asset version.
         """
 
-        LOGGER.debug("Adding version for {} ({})".format(asset.name, asset.asset_type))
+        LOGGER.debug(
+            "Adding version for {} ({})".format(asset.name, asset.asset_type.value)
+        )
 
         validation_errors = self._asset_pipeline.validate(asset)
         validation_errors.extend(self._asset_version_pipeline.validate(version))
