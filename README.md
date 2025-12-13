@@ -38,8 +38,8 @@ rules and add them to different pipelines. It also makes testing really simple, 
 be seen within the unit tests.
 
 ## The Functional Requirements
-* Data should be validated against the following asset data models:
----
+Data should be validated against the following asset data models
+
 **Asset Rules and Schema**
 * Uniqueness is described by its `name` and `type`
 * Multiple assets with the same `name` and `type` combination are **not** allowed
@@ -49,7 +49,7 @@ be seen within the unit tests.
 |--------------|-------|----------------------------------------------------|
 |Name          |`str`  |Required                                            |
 |Type          |`enum` |character, prop, set, environment, vehicle, dressing|
----
+
 **Asset Version Rules and Schema**
 * Uniqueness is described by its `asset`, `department`, and `version`
 * Versions should increment linearly by integers
@@ -122,3 +122,11 @@ What would you like to do?
 7. List asset versions
 8. Exit
 ```
+
+## Testing
+For now, please see **CLI**
+
+## TODO:
+* Add a Qt front end
+* Add a web front-end
+* Use JSON/YAML to figure validation rules
