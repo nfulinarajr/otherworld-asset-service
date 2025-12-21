@@ -109,7 +109,6 @@ def test_get_asset_version(sqlite_database: SQLiteDatabase):
     asset_version_v2 = AssetVersion(
         asset=added_asset.id,
         department=DEPARTMENT,
-        version=2,
         status=VersionStatus.ACTIVE,
     )
     sqlite_database.add_asset_version(asset=added_asset, asset_version=asset_version_v2)
@@ -129,7 +128,6 @@ def test_list_assets(sqlite_database: SQLiteDatabase):
     asset_version_v1 = AssetVersion(
         asset=added_asset.id,
         department=DEPARTMENT,
-        version=1,
         status=VersionStatus.INACTIVE,
     )
     sqlite_database.add_asset_version(asset=added_asset, asset_version=asset_version_v1)
@@ -146,7 +144,6 @@ def test_list_asset_versions(sqlite_database: SQLiteDatabase):
     asset_version_v1 = AssetVersion(
         asset=added_asset.id,
         department=DEPARTMENT,
-        version=1,
         status=VersionStatus.INACTIVE,
     )
     sqlite_database.add_asset_version(asset=added_asset, asset_version=asset_version_v1)
@@ -154,7 +151,6 @@ def test_list_asset_versions(sqlite_database: SQLiteDatabase):
     asset_version_v2 = AssetVersion(
         asset=added_asset.id,
         department=DEPARTMENT,
-        version=2,
         status=VersionStatus.ACTIVE,
     )
     sqlite_database.add_asset_version(asset=added_asset, asset_version=asset_version_v2)
@@ -165,7 +161,6 @@ def test_list_asset_versions(sqlite_database: SQLiteDatabase):
     another_asset_version_v1 = AssetVersion(
         asset=another_added_asset.id,
         department=DEPARTMENT,
-        version=1,
         status=VersionStatus.INACTIVE,
     )
     sqlite_database.add_asset_version(
@@ -196,7 +191,6 @@ def test_duplicate_asset_versions(sqlite_database: SQLiteDatabase):
     asset_version_v1 = AssetVersion(
         asset=asset.id,
         department=DEPARTMENT,
-        version=1,
         status=VersionStatus.ACTIVE,
     )
 

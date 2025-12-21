@@ -62,12 +62,14 @@ def test_service_load_assets(asset_service: OtherWorldAssetService):
 
 
 def test_service_add_asset(asset_service: OtherWorldAssetService):
-    assert asset_service.add_asset(Asset(CHARACTER_NAME, ASSET_TYPE))
+    assert asset_service.add_asset(Asset(name=CHARACTER_NAME, asset_type=ASSET_TYPE))
 
 
 def test_service_add_asset_version(asset_service: OtherWorldAssetService):
-    asset = asset_service.add_asset(Asset(CHARACTER_NAME, ASSET_TYPE))
-    asset_version = AssetVersion(asset.id, DEPARTMENT, 1, VERSION_STATUS)
+    asset = asset_service.add_asset(Asset(name=CHARACTER_NAME, asset_type=ASSET_TYPE))
+    asset_version = AssetVersion(
+        asset=asset.id, department=DEPARTMENT, status=VERSION_STATUS
+    )
 
     assert asset_service.add_asset_version(asset, asset_version)
 
@@ -75,30 +77,38 @@ def test_service_add_asset_version(asset_service: OtherWorldAssetService):
 def test_service_list_assets(asset_service: OtherWorldAssetService):
     assert len(asset_service.list_assets()) == 0
 
-    asset_service.add_asset(Asset(CHARACTER_NAME, ASSET_TYPE))
+    asset_service.add_asset(Asset(name=CHARACTER_NAME, asset_type=ASSET_TYPE))
 
     assert len(asset_service.list_assets()) == 1
 
 
 def test_service_get_asset(asset_service: OtherWorldAssetService):
-    asset = asset_service.add_asset(Asset(CHARACTER_NAME, ASSET_TYPE))
+    asset = asset_service.add_asset(Asset(name=CHARACTER_NAME, asset_type=ASSET_TYPE))
 
     assert asset_service.get_asset(asset.name)
 
 
 def test_service_get_asset_version(asset_service: OtherWorldAssetService):
-    asset = asset_service.add_asset(Asset(CHARACTER_NAME, ASSET_TYPE))
-    asset_version = AssetVersion(asset.id, DEPARTMENT, 1, VERSION_STATUS)
+    asset = asset_service.add_asset(Asset(name=CHARACTER_NAME, asset_type=ASSET_TYPE))
+    asset_version = AssetVersion(
+        asset=asset.id, department=DEPARTMENT, status=VERSION_STATUS
+    )
     asset_service.add_asset_version(asset, asset_version)
 
     assert asset_service.get_asset_version(asset.name, 1)
 
 
 def test_service_list_asset_versions(asset_service: OtherWorldAssetService):
-    asset = asset_service.add_asset(Asset(CHARACTER_NAME, ASSET_TYPE))
-    asset_version_v1 = AssetVersion(asset.id, DEPARTMENT, 1, VERSION_STATUS)
-    asset_version_v2 = AssetVersion(asset.id, DEPARTMENT, 2, VERSION_STATUS)
-    asset_version_v3 = AssetVersion(asset.id, DEPARTMENT, 3, VERSION_STATUS)
+    asset = asset_service.add_asset(Asset(name=CHARACTER_NAME, asset_type=ASSET_TYPE))
+    asset_version_v1 = AssetVersion(
+        asset=asset.id, department=DEPARTMENT, status=VERSION_STATUS
+    )
+    asset_version_v2 = AssetVersion(
+        asset=asset.id, department=DEPARTMENT, status=VERSION_STATUS
+    )
+    asset_version_v3 = AssetVersion(
+        asset=asset.id, department=DEPARTMENT, status=VERSION_STATUS
+    )
 
     asset_service.add_asset_version(asset, asset_version_v1)
 

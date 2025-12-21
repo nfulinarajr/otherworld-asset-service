@@ -219,7 +219,6 @@ def launch_menu_loop(asset_service: OtherWorldAssetService):
 
             asset_type = get_asset_type_from_input()
             department = input("Please provide a department: ").strip().lower()
-            version = input("Please provide a version: ").strip().lower()
             version_status = get_version_status_from_input()
 
             # Determine if an asset exists with the same name and create one if not
@@ -234,7 +233,7 @@ def launch_menu_loop(asset_service: OtherWorldAssetService):
 
             try:
                 asset_version = AssetVersion(
-                    asset.id, department, int(version), version_status
+                    asset.id, department, status=version_status
                 )
                 asset_service.add_asset_version(asset, asset_version)
             except Exception as error:

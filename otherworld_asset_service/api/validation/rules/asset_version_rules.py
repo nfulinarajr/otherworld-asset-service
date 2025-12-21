@@ -43,7 +43,7 @@ class AssetVersionIsGreaterThanOneRule:
     def validate(self, asset_version: AssetVersion) -> list[ValidationError]:
         validation_errors: list[ValidationError] = []
 
-        if asset_version.version < 1:
+        if asset_version.version is not None and asset_version.version < 1:
             validation_errors.append(
                 ValidationError(
                     field="version",

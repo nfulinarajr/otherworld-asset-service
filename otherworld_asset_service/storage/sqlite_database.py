@@ -102,6 +102,17 @@ class SQLiteDatabase:
         if asset.id is None:
             raise ValueError("Asset versions must be associated with a valid asset id.")
 
+        asset_version_number = asset_version.version
+
+        if asset_version_number is None:
+            # Ensure the asset version number exists and if not, increment the latest
+            latest_asset_version_number = self.get_last_asset_version_number(asset.id)
+
+            if latest_asset_version_number:
+                asset_version_number = latest_asset_version_number + 1
+            else:
+                asset_version_number = 1
+
         cursor = self._connection.cursor()
 
         cursor.execute(
@@ -113,7 +124,7 @@ class SQLiteDatabase:
             (
                 asset.id,
                 asset_version.department,
-                asset_version.version,
+                asset_version_number,
                 asset_version.status.value,
             ),
         )
@@ -123,9 +134,9 @@ class SQLiteDatabase:
         LOGGER.debug("{} has been added!".format(asset.name))
 
         return AssetVersion(
-            asset=asset.id,
-            department=asset_version.department,
-            version=asset_version.version,
+            asset.id,
+            asset_version.department,
+            version=asset_version_number,
             status=asset_version.status,
         )
 
@@ -155,9 +166,9 @@ class SQLiteDatabase:
             return None
 
         return Asset(
+            row["name"],
+            AssetType(row["type"]),
             id=row["asset_id"],
-            name=row["name"],
-            asset_type=AssetType(row["type"]),
         )
 
     def get_asset_version(self, asset_id: int, version: int) -> Optional[AssetVersion]:
@@ -187,11 +198,36 @@ class SQLiteDatabase:
             return None
 
         return AssetVersion(
-            asset=asset_id,
-            department=row["department"],
+            asset_id,
+            row["department"],
             version=row["version"],
             status=VersionStatus(row["status"]),
         )
+
+    def get_last_asset_version_number(self, asset_id: int) -> Optional[int]:
+        """Get the last asset version number.
+
+        Args:
+            asset_id (int): The asset id necessary to retrieve the last asset version
+                number.
+
+        Returns:
+            int: The last asset version number.
+        """
+
+        LOGGER.debug("Getting latest asset version for {}".format(asset_id))
+
+        cursor = self._connection.cursor()
+
+        cursor.execute(
+            "SELECT * FROM asset_versions WHERE asset_id = ? "
+            "ORDER BY version DESC LIMIT 1",
+            (asset_id,),
+        )
+
+        row = cursor.fetchone()
+
+        return row["version"] if row else None
 
     def list_assets(self) -> list[Asset]:
         """List all assets.
@@ -210,9 +246,9 @@ class SQLiteDatabase:
         for row in cursor.fetchall():
             assets.append(
                 Asset(
+                    row["name"],
+                    AssetType(row["type"]),
                     id=row["asset_id"],
-                    name=row["name"],
-                    asset_type=AssetType(row["type"]),
                 )
             )
 
@@ -247,8 +283,8 @@ class SQLiteDatabase:
         for row in cursor.fetchall():
             asset_versions.append(
                 AssetVersion(
-                    asset=asset_id,
-                    department=row["department"],
+                    asset_id,
+                    row["department"],
                     version=row["version"],
                     status=VersionStatus(row["status"]),
                 )

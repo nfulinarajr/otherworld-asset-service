@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from otherworld_asset_service.models.enums import VersionStatus
 
@@ -14,9 +15,5 @@ class AssetVersion:
 
     asset: int
     department: str
-    version: int = 1
-    status: VersionStatus = VersionStatus.INACTIVE
-
-    def __post_init__(self):
-        if self.version < 1:
-            raise ValueError("Asset version must be greater than or equal to 1")
+    version: Optional[int] = None
+    status: Optional[VersionStatus] = VersionStatus.INACTIVE
