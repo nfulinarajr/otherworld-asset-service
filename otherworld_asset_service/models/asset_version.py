@@ -16,7 +16,3 @@ class AssetVersion:
     department: str
     version: int = 1
     status: VersionStatus = VersionStatus.INACTIVE
-
-    def __post_init__(self):
-        if self.version < 1:
-            raise ValueError("Asset version must be greater than or equal to 1")
