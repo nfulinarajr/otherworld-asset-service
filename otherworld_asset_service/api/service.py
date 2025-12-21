@@ -76,7 +76,10 @@ class OtherWorldAssetService:
             self.add_asset_version(
                 asset,
                 AssetVersion(
-                    asset.id, version_department, version_number, version_status
+                    asset.id,
+                    version_department,
+                    version=version_number,
+                    status=version_status,
                 ),
             )
 
@@ -136,6 +139,23 @@ class OtherWorldAssetService:
             return
 
         try:
+            if not version.version:
+                latest_version = self._data_store.get_last_asset_version_number(
+                    asset.id
+                )
+
+                if latest_version is None:
+                    latest_version = 1
+                else:
+                    latest_version += 1
+
+                version = AssetVersion(
+                    asset.id,
+                    version.department,
+                    version=latest_version,
+                    status=version.status,
+                )
+
             return self._data_store.add_asset_version(
                 asset=asset, asset_version=version
             )

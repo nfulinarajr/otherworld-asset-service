@@ -12,7 +12,7 @@ def test_version_creation_with_required_and_default_values():
 
     assert asset_version.asset == 1
     assert asset_version.department == DEPARTMENT
-    assert asset_version.version == 1
+    assert asset_version.version == None
     assert asset_version.status == VersionStatus.INACTIVE
 
 
